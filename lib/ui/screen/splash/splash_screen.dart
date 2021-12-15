@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:stock_app/common/common.dart';
+import 'package:stock_app/ui/ui.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Palette.finnHubBackgroundDark,
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Image.asset(
+            Images.iconFinnhub,
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
+          ),
+        ),
+      ),
+    );
   }
 }

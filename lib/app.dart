@@ -36,29 +36,40 @@ class App extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
-          // BlocProvider(
-          //   create: (context) => AppSetupCubit()..initialize(),
-          // ),
-          // BlocProvider(
-          //   create: (context) => TabCubit(),
-          // ),
-          // BlocProvider(
-          //   create: (context) => AuthenticationCubit(
-          //     appSetupCubit: context.read<AppSetupCubit>(),
-          //   ),
-          // ),
+          BlocProvider(
+            create: (context) => AppSetupCubit(
+              firebaseClient: firebaseClient,
+            )..initialize(),
+          ),
+          BlocProvider(
+            create: (context) => TabCubit(),
+          ),
+          BlocProvider(
+            create: (context) => AuthenticationDataCubit(
+              appSetupCubit: context.read<AppSetupCubit>(),
+              localStorageClient: localStorageClient,
+              firebaseClient: firebaseClient,
+            ),
+          ),
         ],
-        child: FinnhubApp(),
+        child: const FinnhubApp(),
       ),
     );
   }
 }
 
-class FinnhubApp extends StatelessWidget {
-  FinnhubApp({Key? key}) : super(key: key);
+class FinnhubApp extends StatefulWidget {
+  const FinnhubApp({Key? key}) : super(key: key);
 
+  @override
+  State<FinnhubApp> createState() => _FinnhubAppState();
+}
+
+class _FinnhubAppState extends State<FinnhubApp> {
   final AppRouter _appRouter = AppRouter();
+
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
   DateTime? _lastUser;
 
   @override
@@ -71,13 +82,13 @@ class FinnhubApp extends StatelessWidget {
         return Scaffold(
           body: MultiBlocListener(
             listeners: [
-              BlocListener<AuthenticationCubit, BaseState>(
+              BlocListener<AuthenticationDataCubit, BaseState>(
                 listener: (context, state) {
                   if (state is AuthenticatedState) {
                     if (_lastUser == null) {
                       _lastUser = state.timestamp;
                       // Trigger Patch Change Tab
-                      context.read<TabCubit>().changeTab(tab: AppTab.home);
+                      context.read<TabCubit>().changeTab(tab: AppTab.account);
                       _navigatorKey.currentState!.pushNamedAndRemoveUntil(
                         RouteName.landingScreen,
                         (route) => false,
