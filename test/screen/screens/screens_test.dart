@@ -1,5 +1,6 @@
-import 'stocks/stock_screen_test.dart' as StockScreenTest;
+import 'account/account_screen_test.dart' as AccountScreenTest;
 
 void main() {
-  StockScreenTest.main();
+  // StockScreenTest.main();
+  AccountScreenTest.main();
 }

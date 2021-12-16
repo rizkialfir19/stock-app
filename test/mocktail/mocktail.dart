@@ -11,6 +11,14 @@ class MockStockSymbolDataCubit extends MockCubit<BaseState>
 class MockStockSymbolActionCubit extends MockCubit<BaseState>
     implements StockSymbolActionCubit {}
 
+class MockSearchDataCubit extends MockCubit<BaseState>
+    implements SearchDataCubit {}
+
+class MockSearchActionCubit extends MockCubit<BaseState>
+    implements SearchActionCubit {}
+
+class MockSignInCubit extends MockCubit<BaseState> implements SignInCubit {}
+
 ///Fakes
 class FakeBaseStateExampleData extends Fake implements BaseState<StocksSymbol> {
 }

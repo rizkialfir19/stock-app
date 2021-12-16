@@ -40,13 +40,13 @@ void main() {
     group("Given: Example - No Exception", () {
       testWidgets('When: Render StockScreen - Then: Success',
           (WidgetTester tester) async {
-        // when(() => stockSymbolDataCubit.state).thenReturn(
-        //   LoadedState(),
-        // );
-        //
-        // when(() => stockSymbolActionCubit.state).thenReturn(
-        //   LoadedState(),
-        // );
+        when(() => stockSymbolDataCubit.state).thenReturn(
+          LoadedState(),
+        );
+
+        when(() => stockSymbolActionCubit.state).thenReturn(
+          InitializedState(),
+        );
 
         await pumpScreenWidget(tester);
 
