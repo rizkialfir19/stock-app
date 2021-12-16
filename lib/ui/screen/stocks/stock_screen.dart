@@ -144,6 +144,10 @@ class StockView extends StatelessWidget {
           itemBuilder: (context, index) {
             return ContainerStock(
               stocks: _resultsData?[index],
+              action: () async =>
+                  context.read<StockSymbolActionCubit>().addToWatchList(
+                        stock: _resultsData?[index],
+                      ),
             );
           },
         );
