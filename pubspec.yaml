@@ -39,11 +39,10 @@ dependencies:
   # Firebase
   firebase_core: ^1.4.0
   firebase_auth: ^3.2.0
+  google_sign_in: ^5.2.1
 
   # Networking
   dio: ^4.0.0
-  xml: ^5.3.1
-  xml2json: ^5.3.1
 
   # Data & Storage
   shared_preferences: ^2.0.6

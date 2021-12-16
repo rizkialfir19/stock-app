@@ -8,7 +8,7 @@ import 'package:stock_app/core/core.dart';
 
 part 'authentication_state.dart';
 
-class AuthenticationDataCubit extends Cubit<BaseState<User>> {
+class AuthenticationDataCubit extends Cubit<BaseState<UserFinnhub>> {
   final AppSetupCubit appSetupCubit;
   final BaseFirebaseClient firebaseClient;
   final BaseLocalStorageClient localStorageClient;
@@ -36,9 +36,9 @@ class AuthenticationDataCubit extends Cubit<BaseState<User>> {
   void initialize() async {
     debugPrint("---> Enter initialize authDataCubit");
     String? _rawUserData;
-    User? _userData;
+    UserFinnhub? _userData;
 
-    /// Get & Check Local Token
+    /// Get & Check Local UserData
     try {
       ///TODO: Get User Data
       _rawUserData = await localStorageClient.getByKey(
@@ -61,7 +61,7 @@ class AuthenticationDataCubit extends Cubit<BaseState<User>> {
 
     /// Parse Raw User Data To Model
     try {
-      _userData = User.fromJson(jsonDecode(_rawUserData));
+      _userData = UserFinnhub.fromJson(jsonDecode(_rawUserData));
       debugPrint('[$this] - Get User Name : ${_userData.username}');
 
       if (_userData.email == null) {

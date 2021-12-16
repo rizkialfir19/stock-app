@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/src/provider.dart';
 import 'package:stock_app/common/common.dart';
+import 'package:stock_app/core/core.dart';
 import 'package:stock_app/ui/ui.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -8,68 +11,90 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: double.maxFinite,
-          color: Palette.finnHubBackgroundDark,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: ListView(
-              children: [
-                Image.asset(
-                  Images.iconFinnhub,
-                  // width: 60.0,
-                  // height: 60.0,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(
-                  height: 100.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
+      body: BlocListener<SignInCubit, BaseState>(
+        listener: (context, state) {
+          UserFinnhub? user;
+
+          if (state is ErrorState) {
+            if (state.error.isNotEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    state.error,
                   ),
-                  child: Text(
-                    "See what's happening\nin the world right now.",
-                    style: FontHelper.h4Bold(
-                      color: Palette.white,
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    "Whoops. Something went wrong, try again later",
+                  ),
+                ),
+              );
+            }
+          }
+
+          if (state is SuccessState) {
+            user = state.data;
+
+            Navigator.pushNamed(
+              context,
+              RouteName.landingScreen,
+              arguments: ScreenArgument(
+                data: UserFinnhub(
+                  email: user?.email,
+                  username: user?.fullName,
+                  fullName: user?.fullName,
+                  imageUrl: user?.imageUrl,
+                  uid: user?.uid,
+                  accessToken: user?.accessToken,
+                  lastSignIn: user?.lastSignIn,
+                ),
+              ),
+            );
+          }
+        },
+        child: SafeArea(
+          child: Container(
+            width: double.maxFinite,
+            color: Palette.finnHubBackgroundDark,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ListView(
+                children: [
+                  Image.asset(
+                    Images.iconFinnhub,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(
+                    height: 100.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(
-                  height: 100.0,
-                ),
-                _sectionSocialMedia(context),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                _sectionDivider(context),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      RouteName.landingScreen,
-                    ),
-                    child: const ContainerSocialMediaButton(
-                      title: 'Sign In',
-                      titleColor: Palette.white,
-                      color: Palette.finnHubPrimary,
-                      useIcon: false,
+                    child: Text(
+                      "See what's happening\nin the world right now.",
+                      style: FontHelper.h4Bold(
+                        color: Palette.white,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                _sectionTermsPolicy(context),
-              ],
+                  const SizedBox(
+                    height: 100.0,
+                  ),
+                  _sectionSocialMedia(context),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  _sectionTermsPolicy(context),
+                ],
+              ),
             ),
           ),
         ),
@@ -83,16 +108,10 @@ class SignInScreen extends StatelessWidget {
         horizontal: 20.0,
       ),
       child: Column(
-        children: const [
+        children: [
           ContainerSocialMediaButton(
             title: 'Continue with Google',
-          ),
-          SizedBox(
-            height: 15.0,
-          ),
-          ContainerSocialMediaButton(
-            title: 'Continue with Apple',
-            icon: Icons.mail,
+            action: () async => context.read<SignInCubit>().signInWithGoogle(),
           ),
         ],
       ),

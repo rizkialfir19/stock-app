@@ -48,9 +48,23 @@ class AppRouter {
           builder: (_) => args?.bloc != null
               ? BlocProvider.value(
                   value: args!.bloc!,
-                  child: const LandingScreen(),
+                  child: LandingScreen(),
                 )
-              : const LandingScreen(),
+              : LandingScreen(),
+        );
+
+      case RouteName.searchResultScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.searchResultScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: SearchResultScreen(),
+                )
+              : SearchResultScreen(),
         );
 
       case RouteName.accountScreen:

@@ -20,10 +20,17 @@ void main() {
   final String _baseUrl = EnvConfig.BASE_PROD_URL;
 
   // Repositories instantiation
-  // final BaseProductRepository _productRepository = ProductRepository(
-  //   baseUrl: _baseUrl,
-  //   apiClient: _apiClient,
-  // );
+  final BaseStockRepository _stockRepository = StockRepository(
+    baseUrl: _baseUrl,
+    apiClient: _apiClient,
+  );
+  final BaseSearchRepository _searchRepository = SearchRepository(
+    baseUrl: _baseUrl,
+    apiClient: _apiClient,
+  );
+  final BaseAuthenticationRepository _authRepository = AuthenticationRepository(
+    firebaseClient: _firebaseClient,
+  );
 
   // Disable Landscape Mode
   SystemChrome.setPreferredOrientations(
@@ -38,7 +45,9 @@ void main() {
         localStorageClient: _localStorageClient,
         firebaseClient: _firebaseClient,
         //Repository
-        // productRepository: _productRepository,
+        stockRepository: _stockRepository,
+        searchRepository: _searchRepository,
+        authRepository: _authRepository,
       ),
     ),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),

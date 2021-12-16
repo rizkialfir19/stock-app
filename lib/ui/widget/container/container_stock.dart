@@ -3,7 +3,12 @@ import 'package:stock_app/common/common.dart';
 import 'package:stock_app/ui/ui.dart';
 
 class ContainerStock extends StatelessWidget {
-  const ContainerStock({Key? key}) : super(key: key);
+  final StocksSymbol? stocks;
+
+  const ContainerStock({
+    Key? key,
+    required this.stocks,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +47,14 @@ class ContainerStock extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "BAKRIE & BROTHERS PT",
+                        stocks?.description ?? "-",
                         style: FontHelper.h7Bold(),
                       ),
                       const SizedBox(
                         height: 5.0,
                       ),
                       Text(
-                        "Common Stock",
+                        stocks?.type ?? "-",
                         style: FontHelper.h9Regular(
                           color: Palette.greyDarken1,
                         ),
@@ -96,7 +101,7 @@ class ContainerStock extends StatelessWidget {
                         height: 5.0,
                       ),
                       Text(
-                        "BNBR.JK",
+                        stocks?.symbol ?? "-",
                         style: FontHelper.h8Bold(),
                       ),
                     ],
@@ -115,7 +120,7 @@ class ContainerStock extends StatelessWidget {
                         height: 5.0,
                       ),
                       Text(
-                        "IDR",
+                        stocks?.currency ?? "-",
                         style: FontHelper.h8Bold(),
                       ),
                     ],
@@ -123,17 +128,29 @@ class ContainerStock extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10.0,
-                      vertical: 5.0,
+                      vertical: 10.0,
                     ),
                     decoration: BoxDecoration(
                       color: Palette.finnHubSecondary,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    child: Text(
-                      "+ Watch List",
-                      style: FontHelper.h8Bold(
-                        color: Palette.white,
-                      ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.remove_red_eye_rounded,
+                          color: Palette.white,
+                          size: 14,
+                        ),
+                        const SizedBox(
+                          width: 5.0,
+                        ),
+                        Text(
+                          "+ Watch List",
+                          style: FontHelper.h8Bold(
+                            color: Palette.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

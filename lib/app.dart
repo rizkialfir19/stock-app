@@ -8,13 +8,18 @@ class App extends StatelessWidget {
   final BaseLocalStorageClient localStorageClient;
   final BaseApiClient apiClient;
   final BaseFirebaseClient firebaseClient;
-  // final BaseProductRepository productRepository;
+  final BaseStockRepository stockRepository;
+  final BaseSearchRepository searchRepository;
+  final BaseAuthenticationRepository authRepository;
 
   const App({
     Key? key,
     required this.localStorageClient,
     required this.apiClient,
     required this.firebaseClient,
+    required this.stockRepository,
+    required this.searchRepository,
+    required this.authRepository,
   }) : super(key: key);
 
   @override
@@ -30,9 +35,15 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (context) => firebaseClient,
         ),
-        // RepositoryProvider(
-        //   create: (context) => productRepository,
-        // ),
+        RepositoryProvider(
+          create: (context) => stockRepository,
+        ),
+        RepositoryProvider(
+          create: (context) => searchRepository,
+        ),
+        RepositoryProvider(
+          create: (context) => authRepository,
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -49,6 +60,13 @@ class App extends StatelessWidget {
               appSetupCubit: context.read<AppSetupCubit>(),
               localStorageClient: localStorageClient,
               firebaseClient: firebaseClient,
+            ),
+          ),
+          BlocProvider(
+            create: (context) => SignInCubit(
+              localStorageClient: localStorageClient,
+              authenticationRepository:
+                  context.read<BaseAuthenticationRepository>(),
             ),
           ),
         ],
@@ -84,14 +102,28 @@ class _FinnhubAppState extends State<FinnhubApp> {
             listeners: [
               BlocListener<AuthenticationDataCubit, BaseState>(
                 listener: (context, state) {
+                  UserFinnhub? user;
+
                   if (state is AuthenticatedState) {
                     if (_lastUser == null) {
                       _lastUser = state.timestamp;
+                      user = state.data;
                       // Trigger Patch Change Tab
                       context.read<TabCubit>().changeTab(tab: AppTab.account);
                       _navigatorKey.currentState!.pushNamedAndRemoveUntil(
                         RouteName.landingScreen,
                         (route) => false,
+                        arguments: ScreenArgument(
+                          data: UserFinnhub(
+                            email: user?.email,
+                            username: user?.fullName,
+                            fullName: user?.fullName,
+                            imageUrl: user?.imageUrl,
+                            uid: user?.uid,
+                            accessToken: user?.accessToken,
+                            lastSignIn: user?.lastSignIn,
+                          ),
+                        ),
                       );
                     }
                   }

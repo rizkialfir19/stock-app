@@ -6,11 +6,18 @@ import 'package:stock_app/ui/screen/account/account_screen.dart';
 import 'package:stock_app/ui/screen/screen.dart';
 import 'package:stock_app/ui/ui.dart';
 
+// ignore: must_be_immutable
 class LandingScreen extends StatelessWidget {
-  const LandingScreen({Key? key}) : super(key: key);
+  LandingScreen({Key? key}) : super(key: key);
+
+  UserFinnhub? userData;
 
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context)!.settings.arguments is UserFinnhub) {
+      userData = ModalRoute.of(context)!.settings.arguments as UserFinnhub;
+    }
+
     return BlocBuilder<TabCubit, AppTab>(
       builder: (context, state) {
         return Scaffold(
@@ -119,16 +126,24 @@ class LandingScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: _buildContent(state),
+          body: _buildContent(
+            state,
+            userData: userData,
+          ),
         );
       },
     );
   }
 
-  Widget _buildContent(AppTab state) {
+  Widget _buildContent(
+    AppTab state, {
+    UserFinnhub? userData,
+  }) {
     if (state == AppTab.account) {
-      return const SafeArea(
-        child: AccountScreen(),
+      return SafeArea(
+        child: AccountScreen(
+          userData: userData,
+        ),
       );
     }
     if (state == AppTab.stocks) {

@@ -12,8 +12,8 @@ class AppSetupCubit extends Cubit<AppSetupState> {
   /// Initialize all setups that required by the application
   void initialize() async {
     try {
-      // await firebaseClient.initializeApp();
-      // await firebaseClient.initializeAuth();
+      await firebaseClient.initializeApp();
+      await firebaseClient.initializeAuth();
 
       await Future.delayed(const Duration(seconds: 2));
 

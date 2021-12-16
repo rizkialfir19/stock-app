@@ -1,7 +1,7 @@
 class EnvConfig {
   static const BASE_PROD_URL = String.fromEnvironment(
     'https://finnhub.io/api/v1/stock/',
-    defaultValue: 'https://finnhub.io/api/v1/stock/',
+    defaultValue: 'https://finnhub.io/api/v1/',
   );
 
   // Can add Staging or Dev URL here

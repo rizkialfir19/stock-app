@@ -242,6 +242,24 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "google_sign_in",
+      "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/google_sign_in-5.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "google_sign_in_platform_interface",
+      "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/google_sign_in_platform_interface-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "google_sign_in_web",
+      "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/google_sign_in_web-0.10.0+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "http_multi_server",
       "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/http_multi_server-3.0.1",
       "packageUri": "lib/",
@@ -362,12 +380,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "petitparser",
-      "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/petitparser-4.4.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.14"
-    },
-    {
       "name": "platform",
       "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0",
       "packageUri": "lib/",
@@ -400,6 +412,12 @@
     {
       "name": "pub_semver",
       "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/pub_semver-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "quiver",
+      "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/quiver-3.0.1+1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -596,18 +614,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "xml",
-      "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/xml-5.3.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.14"
-    },
-    {
-      "name": "xml2json",
-      "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/xml2json-5.3.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "yaml",
       "rootUri": "file:///Users/rizkialfiramdhani/fvm/versions/2.5.3/.pub-cache/hosted/pub.dartlang.org/yaml-3.1.0",
       "packageUri": "lib/",
@@ -620,7 +626,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-12-15T16:28:24.977048Z",
+  "generated": "2021-12-16T00:33:23.342489Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

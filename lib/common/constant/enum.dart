@@ -4,6 +4,12 @@ enum AppSetupState {
   success,
 }
 
+/// State Category
+enum StateCategory {
+  empty,
+  error,
+}
+
 /// Tab type
 enum AppTab {
   account,
