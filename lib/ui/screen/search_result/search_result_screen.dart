@@ -135,19 +135,61 @@ class SearchResultView extends StatelessWidget {
           _resultsData = state.data;
         }
 
-        return ListView.builder(
-          physics: const ClampingScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: _resultsData?.length,
-          itemBuilder: (context, index) {
-            return ContainerStock(
-              stocks: _resultsData?[index],
-              action: () async =>
-                  context.read<SearchActionCubit>().addToWatchList(
-                        stock: _resultsData?[index],
+        return BlocListener<SearchActionCubit, BaseState>(
+          listener: (context, actionState) {
+            StocksSymbol _data;
+
+            if (actionState is LoadingState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: SizedBox(
+                    height: 100.0,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Palette.finnHubSecondary,
                       ),
-            );
+                    ),
+                  ),
+                ),
+              );
+            }
+
+            if (actionState is ErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    actionState.error,
+                  ),
+                ),
+              );
+            }
+
+            if (actionState is SuccessState) {
+              _data = actionState.data;
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Successfully add ${_data.symbol} to watch list.',
+                  ),
+                ),
+              );
+            }
           },
+          child: ListView.builder(
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: _resultsData?.length,
+            itemBuilder: (context, index) {
+              return ContainerStock(
+                stocks: _resultsData?[index],
+                action: () async =>
+                    context.read<SearchActionCubit>().addToWatchList(
+                          stock: _resultsData?[index],
+                        ),
+              );
+            },
+          ),
         );
       },
     );
