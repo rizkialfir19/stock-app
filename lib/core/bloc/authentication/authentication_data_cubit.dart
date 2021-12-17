@@ -34,7 +34,6 @@ class AuthenticationDataCubit extends Cubit<BaseState<UserFinnhub>> {
   }
 
   void initialize() async {
-    debugPrint("---> Enter initialize authDataCubit");
     String? _rawUserData;
     UserFinnhub? _userData;
 
