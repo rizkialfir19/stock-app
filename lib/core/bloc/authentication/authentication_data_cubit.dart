@@ -53,8 +53,8 @@ class AuthenticationDataCubit extends Cubit<BaseState<UserFinnhub>> {
         return;
       }
     } catch (e, s) {
-      debugPrint("---> Masuk error e: $e");
-      debugPrint("---> Masuk error s: $s");
+      debugPrint("--->  error e: $e");
+      debugPrint("--->  error s: $s");
       emit(UnauthenticatedState());
       return;
     }
