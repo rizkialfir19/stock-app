@@ -46,6 +46,9 @@ class SearchActionCubit extends Cubit<BaseState> {
       );
     }
 
-    emit(LoadedState());
+    emit(SuccessState(
+      data: stock,
+      timestamp: DateTime.now(),
+    ));
   }
 }
