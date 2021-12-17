@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:stock_app/common/common.dart';
 
 class StocksSymbol extends BaseModel {
@@ -42,6 +44,28 @@ class StocksSymbol extends BaseModel {
       type: json['type'],
     );
   }
+
+  static Map<String, dynamic> toMap(StocksSymbol stocksSymbol) => {
+        "currency": stocksSymbol.currency,
+        "description": stocksSymbol.description,
+        "displaySymbol": stocksSymbol.displaySymbol,
+        "figi": stocksSymbol.figi,
+        "mic": stocksSymbol.mic,
+        "symbol": stocksSymbol.symbol,
+        "type": stocksSymbol.type,
+      };
+
+  static String encode(List<StocksSymbol> stockSymbol) => json.encode(
+        stockSymbol
+            .map<Map<String, dynamic>>(
+                (stockSymbol) => StocksSymbol.toMap(stockSymbol))
+            .toList(),
+      );
+
+  static List<StocksSymbol> decode(String stockSymbol) =>
+      (json.decode(stockSymbol) as List<dynamic>)
+          .map<StocksSymbol>((item) => StocksSymbol.fromJson(item))
+          .toList();
 
   @override
   copyWith({

@@ -5,3 +5,4 @@ export 'search/search.dart';
 export 'sign_in/sign_in_cubit.dart';
 export 'stock_symbol/stock_symbol.dart';
 export 'tab/tab_cubit.dart';
+export 'watch_list/watch_list_cubit.dart';

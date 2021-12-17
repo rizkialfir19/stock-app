@@ -5,11 +5,13 @@ import 'package:stock_app/ui/ui.dart';
 class ContainerStock extends StatelessWidget {
   final StocksSymbol? stocks;
   final VoidCallback? action;
+  final bool isWatchList;
 
   const ContainerStock({
     Key? key,
     required this.stocks,
     this.action,
+    this.isWatchList = false,
   }) : super(key: key);
 
   @override
@@ -127,37 +129,39 @@ class ContainerStock extends StatelessWidget {
                       ),
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () => action != null ? action!.call() : null,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 10.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Palette.finnHubSecondary,
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.remove_red_eye_rounded,
-                            color: Palette.white,
-                            size: 14,
-                          ),
-                          const SizedBox(
-                            width: 5.0,
-                          ),
-                          Text(
-                            "+ Watch List",
-                            style: FontHelper.h8Bold(
-                              color: Palette.white,
+                  !isWatchList
+                      ? GestureDetector(
+                          onTap: () => action != null ? action!.call() : null,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0,
+                              vertical: 10.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Palette.finnHubSecondary,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.remove_red_eye_rounded,
+                                  color: Palette.white,
+                                  size: 14,
+                                ),
+                                const SizedBox(
+                                  width: 5.0,
+                                ),
+                                Text(
+                                  "+ Watch List",
+                                  style: FontHelper.h8Bold(
+                                    color: Palette.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ],

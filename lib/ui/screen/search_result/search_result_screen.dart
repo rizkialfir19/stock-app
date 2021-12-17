@@ -29,7 +29,6 @@ class SearchResultScreen extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SearchActionCubit(
-            // stockRepository: context.read<BaseStockRepository>(),
             localStorageClient: context.read<BaseLocalStorageClient>(),
           ),
         ),
@@ -143,6 +142,10 @@ class SearchResultView extends StatelessWidget {
           itemBuilder: (context, index) {
             return ContainerStock(
               stocks: _resultsData?[index],
+              action: () async =>
+                  context.read<SearchActionCubit>().addToWatchList(
+                        stock: _resultsData?[index],
+                      ),
             );
           },
         );
