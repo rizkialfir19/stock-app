@@ -30,6 +30,13 @@ class StockSymbolActionCubit extends Cubit<BaseState> {
     }
 
     if (stock != null) {
+      for (var element in _stocksData) {
+        if (element.symbol == stock.symbol) {
+          return emit(
+            ErrorState(error: "Stocks already in your watch list."),
+          );
+        }
+      }
       _stocksData.add(stock);
 
       await localStorageClient.saveByKey(
@@ -39,6 +46,9 @@ class StockSymbolActionCubit extends Cubit<BaseState> {
       );
     }
 
-    emit(LoadedState());
+    emit(SuccessState(
+      data: stock,
+      timestamp: DateTime.now(),
+    ));
   }
 }
